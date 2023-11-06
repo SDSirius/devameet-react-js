@@ -1,8 +1,8 @@
 import { useState } from "react";
-
-import logo from '..//assets/images/logo.svg'
-import imgEmail from '..//assets/images/mail.svg'
-import imgKey from '..//assets/images/key.svg'
+import { Link, useSearchParams } from 'react-router-dom';
+import logo from '..//assets/images/logo.svg';
+import imgEmail from '..//assets/images/mail.svg';
+import imgKey from '..//assets/images/key.svg';
 import { PublicInput } from '../components/general/PublicInput';
 import { LoginServices } from "../services/LoginServices";
 
@@ -14,6 +14,9 @@ export const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const [searchParams] = useSearchParams();
+    const success = searchParams.get('success')
 
     const doLogin = async() =>{
         try {
@@ -46,6 +49,7 @@ export const Login = () => {
             <img src={logo} alt="Logo Devameet" className='logo' />
             <form>
                 {error && <p className="error">{error}</p>}
+                {success && <p className="success">{'Cadastro efetuado com sucesso! Faça seu login'}</p>}
 
                 <PublicInput 
                 icon={imgEmail}
@@ -70,7 +74,7 @@ export const Login = () => {
 
                 <div className='link'>
                     <p>Não tem uma conta?</p>
-                    <a>Faça seu cadastro agora!</a>
+                    <Link to="/register">Faça seu cadastro agora!</Link>
                 </div>
             </form>
         </div>
