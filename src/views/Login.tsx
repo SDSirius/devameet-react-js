@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useSearchParams } from 'react-router-dom';
 import logo from '..//assets/images/logo.svg';
 import imgEmail from '..//assets/images/mail.svg';
 import imgKey from '..//assets/images/key.svg';
 import { PublicInput } from '../components/general/PublicInput';
 import { LoginServices } from "../services/LoginServices";
+import { AuthorizeContext } from "../App";
 
 const loginservices = new LoginServices(); 
 
@@ -16,7 +17,9 @@ export const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const [searchParams] = useSearchParams();
-    const success = searchParams.get('success')
+    const success = searchParams.get('success');
+
+    const { setToken } = useContext(AuthorizeContext)
 
     const doLogin = async() =>{
         try {
@@ -26,12 +29,9 @@ export const Login = () => {
             }
 
             setLoading(true);
-            await loginservices.login({login, password})
+            await loginservices.login({login, password}, setToken)
             setLoading(false)
 
-            // setTimeout(()=>{
-            //     setLoading(false);
-            // }, 2000)
         } catch (e:any) {
 
 
