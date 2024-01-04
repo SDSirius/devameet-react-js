@@ -31,7 +31,7 @@ export class HttpApiServices {
     put(url:string, data:any){
         return this.axios.put(url, data);
     }
-    detele(url:string){
+    delete(url:string){
         return this.axios.delete(url);
     }
 }
