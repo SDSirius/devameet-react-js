@@ -8,6 +8,10 @@ export class MeetServices extends HttpApiServices {
         return await this.get(this.baseUrl);
     }
 
+    async createMeet(body:any){
+        return await this.post(this.baseUrl, body)
+    }
+
     async deleteMeet(id:string) {
         return await this.delete(this.baseUrl + '/' + id);
     }

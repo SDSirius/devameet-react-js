@@ -47,6 +47,7 @@ import { Modal, ModalBody } from 'react-bootstrap';
             await meetServices.deleteMeet(selected);
             await getMeets();
             cancelSelection();
+            
         } catch (e) {
             console.log("Ocorreu um erro ao excluir reunião: ", e )
         }
