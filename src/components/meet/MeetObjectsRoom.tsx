@@ -1,16 +1,31 @@
 import thrashIcon from '../../assets/images/trash_object.svg'
 import leftIcon from '../../assets/images/rotate_left.svg'
 import rightIcon from '../../assets/images/rotate_right.svg'
+import { useEffect } from 'react'
 
 type MeetObjectsRoomType = {
     objects?: [],
     selected?:any,
     setSelected?(s:any):void,
-    removeObject?(o:any):void
+    removeObject?(o:any):void,
+    rotateObject?(o:any, to:string):void
+    moveSelected?(event:any, selected:any):void
 }
 
 
-export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected,setSelected, removeObject}) => {
+export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected,setSelected, removeObject, rotateObject, moveSelected}) => {
+
+    useEffect(() => {
+        const doMove = (event:any) => {
+            moveSelected!!(event, selected);
+        }
+        document.removeEventListener('keyup', doMove);
+        document.addEventListener('keyup', doMove);
+
+        return () => {
+            document.removeEventListener('keyup', doMove);
+         }
+    },[selected])
 
     const getImageFromObject = (object:any) => {
         if (object && object._id ) {
@@ -59,6 +74,11 @@ export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected
                 style += 'row-seven '
                 break;
             }
+
+            case 7:{
+                style += 'row-eight '
+                break;
+            }
             
             default:
                 break;
@@ -100,6 +120,11 @@ export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected
                 style += 'column-seven '
                 break;
             }
+
+            case 7:{
+                style += 'column-eight '
+                break;
+            }
             
             default:
                 break;
@@ -136,6 +161,7 @@ export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected
                             onClick={() => selected?.name === object.name ? setSelected!!(null) : setSelected!!(object)}
                             src={getImageFromObject(object)} 
                             className={getClassFromObject(object)}
+                            style={{zIndex:object.zIndex}}
                             />)
                         }
                     </div>
@@ -143,11 +169,11 @@ export const MeetObjectsRoom:React.FC<MeetObjectsRoomType> = ({objects, selected
                         <div className={selected?._id ? "active" : ''} >
                             <img src={thrashIcon} alt="Deletar item" onClick={() => selected?._id ? removeObject!!(selected) : null}/>
                         </div>
-                        <div>
-                            <img src={rightIcon} alt="Girar a direita"/>
+                        <div className={selected?._id && (selected?.type === 'chair' || selected?.type === 'couch') ? "active" : ''}>
+                            <img src={rightIcon} alt="Girar a direita"  onClick={() => selected?._id ? rotateObject!!(selected, 'right') : null}/>
                         </div>
-                        <div>
-                            <img src={leftIcon} alt="Girar a esquerda"/>
+                        <div className={selected?._id && (selected?.type === 'chair' || selected?.type === 'couch') ? "active" : ''}>
+                            <img src={leftIcon} alt="Girar a esquerda" onClick={() => selected?._id ? rotateObject!!(selected, 'left') : null}/>
                         </div>
                     </div>
                 </div>

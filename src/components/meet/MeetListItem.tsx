@@ -9,7 +9,7 @@ type MeetListItemProps = {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const MeetListItem:React.FC<MeetListItemProps> = ({meet, selectToRemove}) => {
-    console.log(meet)
+    // console.log(meet)
     const mobile = window.innerWidth <= 992;
     
     const navigate = useNavigate();
