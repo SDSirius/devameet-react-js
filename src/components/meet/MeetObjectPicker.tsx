@@ -3,13 +3,12 @@ import downIcon from '../../assets/images/arrow_down_object.svg';
 import rightIcon from '../../assets/images/arrow_right_object.svg';
 import plusIcon from '../../assets/images/plus_circle.svg';
 
-
 type MeetObjectPickerProps = {
     image:string,
     label:string,
     asset:any,
     selected:string,
-    setObject(s:string):void
+    setObject(s:any):void
 }
 
 export const MeetObjectPicker:React.FC<MeetObjectPickerProps> = ({image, label, asset, selected, setObject}) => {
@@ -23,27 +22,42 @@ export const MeetObjectPicker:React.FC<MeetObjectPickerProps> = ({image, label, 
         }
     }
     
-    const selectObject = (o:string) => {
-        setObject(o);
+    const selectObject = (o:string) =>{
+        const objectFinal = {
+            name: o,
+            x: asset.defaultXPosition,
+            y: asset.defaultYPosition,
+            zindex: asset.defaultZIndex,
+            orientation: asset.canRotate ? 'front' : '',
+            type: asset.path,
+            flexStart: asset.flexStart,
+            selectMultiple: asset.selectMultiple,
+        }
+
+        setObject(objectFinal);
         
     }
 
     return (
         <div className="container-object-picker">
-            <div className='action' onClick={() => setShow(!show)} >
-                <img src={image} alt={label}  />
-                <span>{label}: </span>
-                {!show ? <img src={downIcon} /> : <img src={rightIcon} /> }
+            <div className="action" onClick={() => setShow(!show)}>
+                <img src={image} alt={label} />
+                <span>{label}</span>
+                {!show 
+                    ? <img src={downIcon} /> 
+                    : <img src={rightIcon} />
+                }
             </div>
             {show && <div className='objects'>
-                {asset?.objects?.map((o:any) =>
-                    <div className={o === selected ? 'selected' : ''} onClick={() => selectObject(o)}>
-                        <img src={getImageFromObject(o)} 
-                            className={'object ' + (asset.path == 'wall' || asset.path == 'couch' ? 'large' : '')}/>
-                        <img src={plusIcon} className='add' alt="adicionar" />
+                {asset?.objects?.map((o: any) =>
+                    <div key={o} className={o === selected ? 'selected' : ''} onClick={() => selectObject(o)}>
+                        <img src={getImageFromObject(o)}
+                            className={'object ' + (asset.path === 'wall' || asset.path === 'couch' ? 'large' : '')}
+                        />
+                        <img src={plusIcon} className='add' />
                     </div>
                 )}
             </div>}
         </div>
-    );
+    )
 }
