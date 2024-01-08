@@ -31,7 +31,7 @@ export const MeetListItem:React.FC<MeetListItemProps> = ({meet, selectToRemove, 
 
     return (
         <div className="container-meet-list-item">
-            <div className='meet' onClick={() => selectMeet(meet)}>
+            <div className='meet' onClick={() => !mobile ? selectMeet(meet) : null}>
                 <div className='color' style={{backgroundColor : meet?.color }}/>
                 {/* <span onClick={() => navigate(`/link/${meet.link}`)}>{meet.name}  </span> */}
                 <span className={selected === meet.id ? 'selected ' : ''} >{meet.name}  </span>
