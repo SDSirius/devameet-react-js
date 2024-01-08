@@ -13,6 +13,9 @@
         align-items: center;
         justify-content: center;
 
+        &.meet {
+            cursor: pointer;
+        }
         .color {
             width: 6px;
             height: 32px;
@@ -26,7 +29,10 @@
             line-height: 17px;
             color: $greyColor1;
             word-wrap: break-word;
-            cursor: pointer;
+
+            &.selected {
+                color: $primaryColor3;
+            }
         }
     }
     

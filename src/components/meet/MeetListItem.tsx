@@ -3,12 +3,15 @@ import copyIcon from '../../assets/images/copy.svg';
 import editIcon from '../../assets/images/edit.svg';
 import trashIcon from '../../assets/images/trash.svg';
 import { useNavigate } from 'react-router-dom';
+
 type MeetListItemProps = {
     meet :any,
+    selected:string,
+    selectMeet(meet:any):void,
     selectToRemove(id:string):void
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const MeetListItem:React.FC<MeetListItemProps> = ({meet, selectToRemove}) => {
+
+export const MeetListItem:React.FC<MeetListItemProps> = ({meet, selectToRemove, selectMeet, selected}) => {
     // console.log(meet)
     const mobile = window.innerWidth <= 992;
     
@@ -28,9 +31,10 @@ export const MeetListItem:React.FC<MeetListItemProps> = ({meet, selectToRemove})
 
     return (
         <div className="container-meet-list-item">
-            <div className='meet'>
+            <div className='meet' onClick={() => selectMeet(meet)}>
                 <div className='color' style={{backgroundColor : meet?.color }}/>
-                <span onClick={() => navigate(`/link/${meet.link}`)}>{meet.name}  </span>
+                {/* <span onClick={() => navigate(`/link/${meet.link}`)}>{meet.name}  </span> */}
+                <span className={selected === meet.id ? 'selected ' : ''} >{meet.name}  </span>
             </div>
             <div className='actions'>
                 {mobile && <img src={roomIcon} alt='Entrar na reunião' onClick={goToRoom}/>}
