@@ -34,19 +34,14 @@
 
     .resume {
         margin: 16px;
-        width: 25vw;
-        border: 0.5px solid $primaryColor;
-        background-color: rgba(255, 255, 255, 0.5);
 
         span {
-            margin-left: 12px;
             font-weight: 600;
             font-size: 12px;
             line-height: 17px;
         }
         
         p {
-            margin-left: 12px;
             margin: 0;
             font-weight: 700;
             font-size: 16px;
@@ -56,23 +51,6 @@
         img {
             cursor: pointer;
             margin-left: 4px;
-        }
-
-        .user-video {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 40vw;
-            width: 25%;
-            
-            
-            video {
-                border: 5px solid $error;
-                border-radius: 5vw;
-                height: 10vw;
-                width: 11vw;
-                object-fit: cover;
-            }
         }
     }
 
@@ -133,8 +111,6 @@
             margin: 0;
             margin-left: 24px;
             padding-bottom: 24px;
-
-            
         }
     }
 }

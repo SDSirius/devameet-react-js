@@ -235,9 +235,9 @@ export const RoomHome = () => {
                                 <img src={copyIcon} />
                             </div>
                             <p style={{color}}>{name}</p>
-                            <div className="user-video">
+                            
                             <video id='localVideoRef' playsInline autoPlay muted/>
-                            </div>
+                            
                             {/* <audio id='localVideoRef' playsInline autoPlay muted/> */}
                             {getUsersWithoutMe()?.map((user:any) => 
                             <audio key={user.clientId} id={user.clientId}  
