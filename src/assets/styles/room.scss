@@ -33,54 +33,55 @@
     }
 
     .resume {
-        position: relative;
-        justify-content: flex-start;
-        align-items: flex-start;
+
         margin: 0 16px;
-        // margin-top: 0;
 
         span {
+            position: absolute;
+            top: 15vw;
             font-weight: 600;
             font-size: 12px;
             line-height: 17px;
         }
-        
+
+        img {
+            position: absolute;
+            top: 15vw;
+            left: 40vw;
+            cursor: pointer;
+            // margin-left: 4px;
+        }
+
         p {
+            position: absolute;
+            top: 18vw;
             margin: 0;
             font-weight: 700;
             font-size: 16px;
             line-height: 22px;
         }
 
-        img {
-            cursor: pointer;
-            margin-left: 4px;
-        }
-
         .container-video {
             position: absolute;
-            top: 25vw;
-            width: 98%;
+            top: 26vw;
+            width: 92%;
             border: 1px solid $error;
             display: flex;
             justify-content: space-between;
-            height: 28vw;
+            height: 22vw;
 
             .mine-stream {
+                position: relative;
+                top: -5vw;
+                display: flex;
                 flex-direction: column;
-                p {
-                    position: relative;
-                    left: 2vw;
-                    font-weight: 600;
-                    font-size: 12px;
-                    line-height: 17px;
-                    
-                }
+                
                 .me {
                     position: relative;
-                    top: 1vw;
-                    border: 1px solid $primaryColorWithOpacity;
+                    top: 5vw;
+                    border: 2px solid $primaryColorWithOpacity;
                     width: 25vw;
+                    border-radius: 15px;
                 }
             }
 
@@ -92,16 +93,21 @@
                 border-left: 1px solid $primaryColor5;
                 
                 .user-stream {
+                    display: flex;
+                    flex-wrap: wrap;
                     border: 1px solid black;
 
-                    // p {
-                    //     font-size: 8px;
-                    // }
+                    p {
+                        position: absolute;
+                        top: -5vw;
+                        font-size: 8px;
+                    }
 
                     .user-video {
-                        border: 2px solid $error;
-                        height: 14vw;
-                        width: 50px;
+                        border-radius: 15px;
+                        border: 0.5px solid $primaryColor;
+                        height: 11vw;
+                        width: 16vw;
                     }
                 }
             }
@@ -109,6 +115,8 @@
     }
 
     .movement {
+        position: relative;
+        top: 18vw;
         display: flex;
         flex-direction: column;
         width: 100%;

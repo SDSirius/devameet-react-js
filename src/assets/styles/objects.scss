@@ -1,6 +1,8 @@
 @import "./configs.scss";
 
 .container-objects {
+  position: relative;
+  top: 18vw;
   display: flex;
   align-items: flex-start;
   justify-content: center;

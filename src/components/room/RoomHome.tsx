@@ -246,7 +246,6 @@ export const RoomHome = () => {
                             <p style={{color}}>{name}</p>
                             <div className="container-video">
                                 <div className="mine-stream">
-                                    <p>{me?.name}</p>
                                     <video className="me" id='localVideoRef' playsInline autoPlay muted/>
 
                                 </div>
@@ -257,7 +256,6 @@ export const RoomHome = () => {
                                     console.log(`Vídeo para ${user.name} está sendo exibido.`);
                                     return (
                                         <div key={user.clientId} className="user-stream">
-                                            <p>{user.name}</p>
                                             <video className="user-video" id={user.clientId} playsInline autoPlay muted={user?.muted} />
                                         </div>
                                         );
