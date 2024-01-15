@@ -33,7 +33,11 @@
     }
 
     .resume {
-        margin: 16px;
+        position: relative;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin: 0 16px;
+        // margin-top: 0;
 
         span {
             font-weight: 600;
@@ -51,6 +55,56 @@
         img {
             cursor: pointer;
             margin-left: 4px;
+        }
+
+        .container-video {
+            position: absolute;
+            top: 25vw;
+            width: 98%;
+            border: 1px solid $error;
+            display: flex;
+            justify-content: space-between;
+            height: 28vw;
+
+            .mine-stream {
+                flex-direction: column;
+                p {
+                    position: relative;
+                    left: 2vw;
+                    font-weight: 600;
+                    font-size: 12px;
+                    line-height: 17px;
+                    
+                }
+                .me {
+                    position: relative;
+                    top: 1vw;
+                    border: 1px solid $primaryColorWithOpacity;
+                    width: 25vw;
+                }
+            }
+
+
+            .others {
+                flex: 1;
+                display: flex;
+                flex-wrap: wrap;
+                border-left: 1px solid $primaryColor5;
+                
+                .user-stream {
+                    border: 1px solid black;
+
+                    // p {
+                    //     font-size: 8px;
+                    // }
+
+                    .user-video {
+                        border: 2px solid $error;
+                        height: 14vw;
+                        width: 50px;
+                    }
+                }
+            }
         }
     }
 

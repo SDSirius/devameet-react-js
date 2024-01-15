@@ -49,7 +49,7 @@
         "canRotate": false,
         "defaultXPosition": 2,
         "defaultYPosition": 3,
-        "defaultZIndex": 2,
+        "defaultZIndex": 4,
         "objects": [
             "table_01",
             "table_02",
@@ -94,7 +94,7 @@
         "canRotate": false,
         "defaultXPosition": 2,
         "defaultYPosition": 3,
-        "defaultZIndex": 3,
+        "defaultZIndex": 5,
         "objects": [
             "decor_01",
             "decor_02",

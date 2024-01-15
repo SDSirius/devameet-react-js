@@ -63,7 +63,7 @@ export const RoomHome = () => {
                 audio:true
             });
 
-            if(document.getElementById('localVideoRef')){
+            if (document.getElementById('localVideoRef')) {
                 const videoRef: any = document.getElementById('localVideoRef');
                 videoRef.srcObject = userMediaStream;
             }
@@ -82,12 +82,18 @@ export const RoomHome = () => {
     },[])
 
     useEffect(() => {
-        document.addEventListener('keyup', (event:any) => doMovement(event)) ;
-
+        document.addEventListener('keyup', (event: any) => {
+            console.log('Tecla pressionada:', event.key);
+            doMovement(event);
+        });
+    
         return () => {
-            document.removeEventListener('keyup', (event:any) => doMovement(event)) ;
+            document.removeEventListener('keyup', (event: any) => {
+                console.log('Tecla liberada:', event.key);
+                doMovement(event);
+            });
         }
-    },[])
+    }, []);
 
     const enterRoom = () => {
         if(!userMediaStream){
@@ -100,23 +106,23 @@ export const RoomHome = () => {
 
         wsServices.joinRoom(link, userId);
         wsServices.onCallMade();
-        wsServices.onUpdateUserList(async(users:any)  => {
-            if (users){
+        wsServices.onUpdateUserList(async (users: any) => {
+            if (users) {
                 setConnectedUsers(users);
                 localStorage.setItem('connectedUsers', JSON.stringify(users));
 
-                const me = users.find((u:any) => u.user === userId);
-                if(me){
+                const me = users.find((u: any) => u.user === userId);
+                if (me) {
                     setMe(me);
                     localStorage.setItem('me', JSON.stringify(me));
                 }
 
-                const usersWithoutMe = users.filter((u:any) => u.user !== userId);
-                for (const user of usersWithoutMe) {
+                const usersWithoutMe = users.filter((u : any) => u.user !== userId);
+                for(const user of usersWithoutMe){
                     wsServices.addPeerConnection(user.clientId, userMediaStream, (_stream : any) => {
-                        if(document.getElementById(user.clientId)){
+                        if (document.getElementById(user.clientId)) {
                             const videoRef: any = document.getElementById(user.clientId);
-                            videoRef.srcObject = userMediaStream;
+                            videoRef.srcObject = _stream;
                         }
                     });
                 }
@@ -130,11 +136,11 @@ export const RoomHome = () => {
             wsServices.removePeerConnection(socketId);
         });
 
-        wsServices.onAddUser((user:any) => {
+        wsServices.onAddUser((user: any) => {
             console.log('onAddUser', user);
 
             wsServices.addPeerConnection(user, userMediaStream, (_stream : any) => {
-                if(document.getElementById(user)){
+                if (document.getElementById(user)) {
                     const videoRef: any = document.getElementById(user);
                     videoRef.srcObject = _stream;
                 }
@@ -147,23 +153,23 @@ export const RoomHome = () => {
 
     };
 
-    const doMovement = (event:any) => {
+    const doMovement = (event: any) => {
         const meStr = localStorage.getItem('me') || '';
         const user = JSON.parse(meStr);
 
-        if(event && user){
+        if (event && user) {
             const payload = {
                 userId,
-                link,
-            }as any;
+                link
+            } as any;
 
-            switch(event.key){
+            switch (event.key) {
                 case 'ArrowUp':
-                    payload.x=user.x;
+                    payload.x = user.x;
                     payload.orientation = 'back';
-                    if(user.orientation === 'back'){
-                        payload.y = user.y > 1 ? user.y -1 : 1;
-                    }else{
+                    if (user.orientation === 'back') {
+                        payload.y = user.y > 1 ? user.y - 1 : 1;
+                    } else {
                         payload.y = user.y;
                     }
                     break;
@@ -197,6 +203,9 @@ export const RoomHome = () => {
                             
                 default: break;
             }
+
+            console.log('Coordenadas atualizadas:', payload.x, payload.y, payload.orientation);
+
             if(payload.x >= 0 && payload.y >= 0 && payload.orientation){
                 wsServices.updateUserMovement(payload);
             }
@@ -217,8 +226,8 @@ export const RoomHome = () => {
         wsServices.updateUserMute(payload);
     }
 
-    const getUsersWithoutMe =() => {
-        return connectedUsers.filter((u:any) => u.user !== userId);
+    const getUsersWithoutMe = () => {
+        return connectedUsers.filter((u : any) => u.user !== userId);
     }
 
     return (
@@ -235,14 +244,32 @@ export const RoomHome = () => {
                                 <img src={copyIcon} />
                             </div>
                             <p style={{color}}>{name}</p>
+                            <div className="container-video">
+                                <div className="mine-stream">
+                                    <p>{me?.name}</p>
+                                    <video className="me" id='localVideoRef' playsInline autoPlay muted/>
+
+                                </div>
+                                {/* <audio id='localVideoRef' playsInline autoPlay muted/> */}
+
+                                <div className="others">
+                                    {getUsersWithoutMe()?.map((user:any) => {
+                                    console.log(`Vídeo para ${user.name} está sendo exibido.`);
+                                    return (
+                                        <div key={user.clientId} className="user-stream">
+                                            <p>{user.name}</p>
+                                            <video className="user-video" id={user.clientId} playsInline autoPlay muted={user?.muted} />
+                                        </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
                             
-                            <video id='localVideoRef' playsInline autoPlay muted/>
-                            
-                            {/* <audio id='localVideoRef' playsInline autoPlay muted/> */}
-                            {getUsersWithoutMe()?.map((user:any) => 
+                            {/* {getUsersWithoutMe()?.map((user:any) => 
                             <audio key={user.clientId} id={user.clientId}  
                                 playsInline autoPlay muted={user?.muted} />
-                            )}
+                            )} */}
                         </div>
                         <RoomObjects objects={objects} enterRoom={enterRoom}
                             connectedUsers={connectedUsers} me={me} toggleMute={toggleMute}/>
