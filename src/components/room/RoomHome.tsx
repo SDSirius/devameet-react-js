@@ -252,14 +252,11 @@ export const RoomHome = () => {
                                 {/* <audio id='localVideoRef' playsInline autoPlay muted/> */}
 
                                 <div className="others">
-                                    {getUsersWithoutMe()?.map((user:any) => {
-                                    console.log(`Vídeo para ${user.name} está sendo exibido.`);
-                                    return (
+                                    {getUsersWithoutMe()?.map((user:any) => 
                                         <div key={user.clientId} className="user-stream">
                                             <video className="user-video" id={user.clientId} playsInline autoPlay muted={user?.muted} />
                                         </div>
-                                        );
-                                    })}
+                                    )}
                                 </div>
                             </div>
 
