@@ -246,7 +246,7 @@ export const RoomHome = () => {
                             <p style={{color}}>{name}</p>
                             <div className="container-video">
                                 <div className="mine-stream">
-                                    <video className="me" id='localVideoRef' playsInline autoPlay muted/>
+                                    <video className="me" id='localVideoRef' playsInline autoPlay muted />
 
                                 </div>
                                 {/* <audio id='localVideoRef' playsInline autoPlay muted/> */}

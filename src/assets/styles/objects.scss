@@ -223,6 +223,7 @@
   }
 
   @media screen and (min-width: $desktopBreakpoint) {
+    position: static;
     display: flex;
     flex: 1;
     height: 100%;
